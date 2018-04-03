@@ -1,0 +1,22 @@
+webserver:
+    build: "docker/webserver"
+    links:
+        - db
+        - mail
+    ports:
+        - "80:80"
+    volumes:
+        - ./www:/var/www/html
+        - ./docker/logs:/var/log
+mail:
+    build: "docker/mail"
+    ports:
+        - "1025:1025"
+        - "8025:8025"
+db:
+    build: "docker/mysql"
+    ports:
+        - "3306:3306"
+    environment:
+        - MYSQL_ROOT_PASSWORD=docker
+        - MYSQL_DATABASE=dev
