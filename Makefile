@@ -4,9 +4,11 @@ help: # Outputs help information
 build: # Builds the project
 	@./docker/scripts/build.sh
 
+up: start
 start: # Starts the project
 	@./docker/scripts/start.sh
 
+down: stop
 stop: # Stops the project
 	@./docker/scripts/stop.sh
 
