@@ -1,12 +1,12 @@
 # A Nails friendly LAMP environment using docker
 
-A **really easy** docker LAMP stack; optimised for use with Nails.
+A **really easy** docker LAMP stack.
 
 
 
 ## Features
 
-  - A LAMP environment running everything you need:
+  - A LAMP environment running:
     - Apache 2.4
     - PHP 7.2
     - MySQL 5.6
@@ -16,7 +16,14 @@ A **really easy** docker LAMP stack; optimised for use with Nails.
 
 ## How to use
 
-> @todo - write up how to use the repo
+This repository is simply a wrapper for `docker-compose`; to make life a little easier we use a `Makefile` to wrap up some of the common commands. Feel free to add your own, as per your project's needs
+
+- `build`  - Builds all the containers
+- `start`  - Start all the containers
+- `up`     - Alias of start
+- `stop`   - Stop all the containers
+- `down`   - Alias of stop
+- `clean`  - Remove all the containers
 
 
 
