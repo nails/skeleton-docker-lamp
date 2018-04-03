@@ -1,5 +1,5 @@
-web:
-    build: "docker/apache"
+webserver:
+    build: "docker/webserver"
     links:
         - db
         - mail
@@ -18,5 +18,5 @@ db:
     ports:
         - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=docker
-      - MYSQL_DATABASE=dev
+        - MYSQL_ROOT_PASSWORD=docker
+        - MYSQL_DATABASE=dev
