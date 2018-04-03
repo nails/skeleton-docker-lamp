@@ -6,12 +6,10 @@ A **really easy** docker LAMP stack; optimised for use with Nails.
 
 ## Features
 
-  - A LAMP environment running everything you need in just one command:
+  - A LAMP environment running everything you need:
     - Apache 2.4
-    - PHP 5.6
-    - MySQL 5.5
-  - Composer installed
-  - XDebug installed
+    - PHP 7.2
+    - MySQL 5.6
   - [Mailhog](https://github.com/mailhog/MailHog) installed for working with emails locally
 
 
@@ -26,7 +24,8 @@ A **really easy** docker LAMP stack; optimised for use with Nails.
 
 - Host:     `db`
 - Username: `root`
-- Password: `123`
+- Password: `docker`
+- Port:     `3306`
 - Database: `dev`
 
 
