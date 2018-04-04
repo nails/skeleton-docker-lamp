@@ -1,4 +1,4 @@
-FROM php:7-apache
+FROM php:7.2-apache
 
 # Create: user
 RUN useradd -u 1000 -m www-bridge-user
@@ -15,9 +15,10 @@ RUN apt-get update -y && \
     vim \
     libcurl4-openssl-dev \
     wget \
-    gnupg2
+    gnupg2 \
+    mysql-client
 
-# Install Node
+# Install: Node
 RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get install -y nodejs

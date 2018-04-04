@@ -23,33 +23,40 @@ This repository is, more or less, just a wrapper for `docker-compose`; to make l
 
 Day-to-day, you'll likely use `make start` and `make stop` when working with this stack, but the following are available:
 
-- `make build`            - Executes ./www/build.sh within the context of the webserver container
-- `make build-containers` - Builds the project containers
-- `make start`            - Start all containers and build
-- `make stop`             - Stop all containers
-- `make clean`            - Stop, then remove, all containers
-- `make bash`             - SSH into the webserver container
-- `make bash-root`        - SSH into the webserver container, as root
-- `make test`             - Run tests
-- `make up`               - Alias of start
-- `make down`             - Alias of stop
+
+Command                  | Value
+------------------------ | -----------------------------------------------------------------------
+`make build`             | Executes `./www/build.sh` within the context of the webserver container
+`make build-containers`  | Builds the project containers
+`make start`             | Start all containers and build
+`make stop`              | Stop all containers
+`make clean`             | Stop, then remove, all containers
+`make bash`              | SSH into the webserver container
+`make bash-root`         | SSH into the webserver container, as root
+`make test`              | Run tests
+`make up`                | Alias of start
+`make down`              | Alias of stop
 
 Feel free to add your own, as per your project's needs.
 
 ## Database
 
-- Host:     `db`
-- Username: `root`
-- Password: `docker`
-- Port:     `3306`
-- Database: `dev`
+Property      | Value
+------------- | -------------
+Host:         | `db`
+Username:     | `root`
+Password:     | `docker`
+Port:         | `3306`
+Database:     | `dev`
 
 
 
 ## Email
 
-- Host:     `mail`
-- Username: `<blank>`
-- Password: `<blank>`
-- Port:     `1025`
-- GUI:      `http://localhost:8025`
+Property      | Value
+------------- | -------------
+Host          | `mail`
+Username      | `<blank>`
+Password      | `<blank>`
+Port          | `1025`
+GUI           | `http://localhost:8025`
