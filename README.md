@@ -27,6 +27,7 @@ Day-to-day, you'll likely use `make start` and `make stop` when working with thi
 Command                  | Value
 ------------------------ | -----------------------------------------------------------------------
 `make build`             | Executes `./www/build.sh` within the context of the webserver container
+`make watch`             | Executes `./www/watch.sh` within the context of the webserver container
 `make build-containers`  | Builds the project containers
 `make start`             | Start all containers and build
 `make stop`              | Stop all containers
