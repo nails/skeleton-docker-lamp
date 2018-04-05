@@ -8,6 +8,8 @@ webserver:
     volumes:
         - ./www:/var/www/html
         - ./docker/logs:/var/log
+        - ~/.composer:/home/www-bridge-user/.composer
+        - ~/.npm:/home/www-bridge-user/.npm
 mail:
     build: "docker/mail"
     ports:
