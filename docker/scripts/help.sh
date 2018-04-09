@@ -8,6 +8,7 @@ The following commands are available:
 
 help             - Prints this message
 build            - Executes ./www/build.sh within the context of the webserver container
+watch            - Executes ./www/watch.sh within the context of the webserver container
 build-containers - Builds the project containers
 start            - Start all containers and build
 stop             - Stop all containers

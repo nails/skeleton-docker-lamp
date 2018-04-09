@@ -7,16 +7,20 @@ webserver:
         - "80:80"
     volumes:
         - ./www:/var/www/html
-        - ./docker/logs:/var/log
+        - ./docker/webserver/logs:/var/log
+        - ~/.composer:/home/www-bridge-user/.composer
+        - ~/.npm:/home/www-bridge-user/.npm
 mail:
     build: "docker/mail"
     ports:
         - "1025:1025"
         - "8025:8025"
 db:
-    build: "docker/mysql"
+    build: "docker/db"
     ports:
         - "3306:3306"
+    volumes:
+        - ./docker/db/data:/var/lib/mysql/
     environment:
         - MYSQL_ROOT_PASSWORD=docker
         - MYSQL_DATABASE=dev
