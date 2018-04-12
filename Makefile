@@ -71,14 +71,14 @@ test:
 
 
 # --------------------------------------------------------------------------
-# Create the SSL Certificate
+# Renews a previously created LetsEncrypt SSL certificate
 # --------------------------------------------------------------------------
 ssl-create:
 	@./docker/scripts/ssl-create.sh
 
 
 # --------------------------------------------------------------------------
-# Renew the SSL Certificate
+# Renews a previously created LetsEncrypt SSL certificate
 # --------------------------------------------------------------------------
 ssl-renew:
 	@./docker/scripts/ssl-renew.sh

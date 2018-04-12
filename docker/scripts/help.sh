@@ -16,6 +16,8 @@ clean            - Stop, then remove, all containers
 bash             - SSH into the webserver container
 bash-root        - SSH into the webserver container, as root
 test             - Run tests
+ssl-create       - Creates a new LetsEncrypt SSL certificate
+ssl-renew        - Renews a previously created LetsEncrypt SSL certificate
 up               - Alias of start
 down             - Alias of stop
 
