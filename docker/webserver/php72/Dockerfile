@@ -1,6 +1,13 @@
 FROM php:7.2-apache
 
+# Install: configuration files
+COPY templates/apache2.conf /etc/apache2/
+COPY templates/php.ini /usr/local/etc/php/
+COPY templates/localhost.ssl.conf /etc/ssl/localhost/
+
 RUN useradd -u 1000 -m www-bridge-user && \
+    # Add backports (for LetsEncrypt)
+    echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -16,13 +23,14 @@ RUN useradd -u 1000 -m www-bridge-user && \
     libcurl4-openssl-dev \
     gnupg2 \
     mysql-client && \
+    apt-get install python-certbot-apache -y -t stretch-backports && \
     rm -rf /var/lib/apt/lists/* && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get install -y nodejs && \
     # Install: PHP extensions
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install pdo pdo_mysql mysqli gd curl && \
+    docker-php-ext-install pdo pdo_mysql mysqli gd curl zip && \
     pecl install mcrypt-1.0.1 && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
@@ -37,8 +45,12 @@ RUN useradd -u 1000 -m www-bridge-user && \
     rm -rf ~/nails-command-line-tool && \
     # Enable: mod_rewrite
     a2enmod rewrite && \
+    a2enmod ssl && \
+    a2enmod headers && \
+    # Create local SSL certificate
+    mkdir -p /etc/ssl/localhost && \
+    openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
+        -newkey rsa:2048 -nodes -sha256 \
+        -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
+    # Restart apache
     service apache2 restart
-
-# Install: configuration files
-ADD templates/apache2.conf /etc/apache2/
-ADD templates/php.ini /usr/local/etc/php/
