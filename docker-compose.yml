@@ -5,9 +5,11 @@ webserver:
         - mail
     ports:
         - "80:80"
+        - "443:443"
     volumes:
         - ./www:/var/www/html
         - ./docker/webserver/logs:/var/log
+        - ./docker/webserver/letsencrypt:/etc/letsencrypt
         - ~/.composer:/home/www-bridge-user/.composer
         - ~/.npm:/home/www-bridge-user/.npm
 mail:
