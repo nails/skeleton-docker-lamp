@@ -2,7 +2,6 @@ webserver:
     build: "docker/webserver/php72"
     links:
         - db
-        - mail
     ports:
         - "80:80"
         - "443:443"
@@ -10,13 +9,6 @@ webserver:
         - ./www:/var/www/html
         - ./docker/webserver/logs:/var/log
         - ./docker/webserver/letsencrypt:/etc/letsencrypt
-        - ~/.composer:/home/www-bridge-user/.composer
-        - ~/.npm:/home/www-bridge-user/.npm
-mail:
-    build: "docker/mail"
-    ports:
-        - "1025:1025"
-        - "8025:8025"
 db:
     build: "docker/db"
     ports:
@@ -24,5 +16,6 @@ db:
     volumes:
         - ./docker/db/data:/var/lib/mysql/
     environment:
-        - MYSQL_ROOT_PASSWORD=docker
-        - MYSQL_DATABASE=dev
+        MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+        # Set credentials per environment
+        # i.e. in docker-compose.override.yml
