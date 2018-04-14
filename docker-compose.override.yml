@@ -1,0 +1,24 @@
+webserver:
+    links:
+        - mail
+    volumes:
+        - ~/.composer:/home/www-bridge-user/.composer
+        - ~/.npm:/home/www-bridge-user/.npm
+    environment:
+      - ENVIRONMENT=DEVELOPMENT
+      - DB_HOST=db
+      - DB_USER=docker
+      - DB_PASSWORD=docker
+      - DB_DATABASE=dev
+      - MAIL_HOST=mail
+      - MAIL_PORT=1025
+mail:
+    build: "docker/mail"
+    ports:
+        - "1025:1025"
+        - "8025:8025"
+db:
+    environment:
+        - MYSQL_USER=docker
+        - MYSQL_PASSWORD=docker
+        - MYSQL_DATABASE=dev

@@ -43,13 +43,18 @@ Command                  | Value
 
 Feel free to add your own, as per your project's needs.
 
+
+## Configuration
+
+`docker-compose.yml` contains the basic requirements to run the project, exclusive of any credentials (e.g database). Configure your containers for the appropriate environment using `docker-compose.override.yml`; the included override contains default credentials for a development environment and should be replaced for other environments.
+
 ## Webserver
 
 The webserver container has all you need enabled for development; you can specify custom configurations using the `./docker/webserver/templates/*` files.
 
 In addition, the following directories are of interest:
 
-- The webroot is available at `./www`
+- The web root is available at `./www`
 - Webserver logs are available at `./docker/webserver/logs`
 - LetsEncrypt configurations are available at `./docker/webserver/letsencrypt`
 
