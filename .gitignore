@@ -1,2 +1,5 @@
 .DS_Store
 .idea
+docker/db/data
+docker/webserver/logs
+docker/webserver/letsencrypt
