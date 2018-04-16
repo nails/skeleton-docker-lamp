@@ -1,8 +1,13 @@
 FROM php:5.6-apache
 
+# Install: configuration files
+COPY templates/apache2.conf /etc/apache2/
+COPY templates/php.ini /usr/local/etc/php/
+COPY templates/localhost.ssl.conf /etc/ssl/localhost/
+
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
-    echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list && \
+    echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -18,7 +23,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     libcurl4-openssl-dev \
     gnupg2 \
     mysql-client && \
-    apt-get install python-certbot-apache -y -t stretch-backports && \
+    apt-get install python-certbot-apache -y -t jessie-backports && \
     rm -rf /var/lib/apt/lists/* && \
     # Install: PHP extensions
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
@@ -48,7 +53,3 @@ RUN useradd -u 1000 -m www-bridge-user && \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
     # Restart apache
     service apache2 restart
-
-# Install: configuration files
-COPY templates/apache2.conf /etc/apache2/
-COPY templates/php.ini /usr/local/etc/php/
