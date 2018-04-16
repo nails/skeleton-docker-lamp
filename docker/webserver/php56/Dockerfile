@@ -1,5 +1,10 @@
 FROM php:5.6-apache
 
+# Install: configuration files
+COPY templates/apache2.conf /etc/apache2/
+COPY templates/php.ini /usr/local/etc/php/
+COPY templates/localhost.ssl.conf /etc/ssl/localhost/
+
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
     echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
@@ -48,7 +53,3 @@ RUN useradd -u 1000 -m www-bridge-user && \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
     # Restart apache
     service apache2 restart
-
-# Install: configuration files
-COPY templates/apache2.conf /etc/apache2/
-COPY templates/php.ini /usr/local/etc/php/
