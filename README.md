@@ -64,6 +64,10 @@ In addition, the following directories are of interest:
 The webserver is equipped with a self-signed SSL certificate by default, so you can test secure connections on `localhost`. `certbot` is also available for generating, and renewing, valid certificates via LetsEncrypt.
 
 
+# Cron
+
+There is an empty crontab which you can populate at `./docker/webserver/crontab`.
+
 
 ## Database
 
