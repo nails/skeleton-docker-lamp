@@ -4,6 +4,7 @@ FROM php:5.6-apache
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
+COPY templates/cron.sh /cron.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
@@ -11,6 +12,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
+    cron \
     git \
     zip \
     libpng-dev \
