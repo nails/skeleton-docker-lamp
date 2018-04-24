@@ -2,8 +2,8 @@ webserver:
     links:
         - mail
     volumes:
-        - ~/.composer:/home/www-bridge-user/.composer
-        - ~/.npm:/home/www-bridge-user/.npm
+        - ~/.composer:/home/www-bridge-user/.composer:delegated
+        - ~/.npm:/home/www-bridge-user/.npm:delegated
     environment:
       - ENVIRONMENT=DEVELOPMENT
       - DB_HOST=db
