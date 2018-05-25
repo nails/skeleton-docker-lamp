@@ -1,5 +1,5 @@
 webserver:
-    build: "docker/webserver/php72"
+    build: "docker/webserver/apache-laravel-php72"
     links:
         - db
     ports:

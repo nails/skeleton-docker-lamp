@@ -1,14 +1,15 @@
-FROM php:5.6-apache
+FROM php:7.2-apache
 
 # Install: configuration files
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
+COPY templates/install-nails.sh /install-nails.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
-    echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
+    echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -25,25 +26,22 @@ RUN useradd -u 1000 -m www-bridge-user && \
     libcurl4-openssl-dev \
     gnupg2 \
     mysql-client && \
-    apt-get install python-certbot-apache -y -t jessie-backports && \
+    apt-get install python-certbot-apache -y -t stretch-backports && \
     rm -rf /var/lib/apt/lists/* && \
-    # Install: PHP extensions
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install pdo pdo_mysql mysqli gd curl mcrypt zip && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get install -y nodejs && \
+    # Install: PHP extensions
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install pdo pdo_mysql mysqli gd curl zip && \
+    pecl install mcrypt-1.0.1 && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
     # Install: phpunit
-    curl -sS https://phar.phpunit.de/phpunit-5.7.9.phar -o phpunit-5.7.9.phar && \
-    chmod +x phpunit-5.7.9.phar && \
-    mv phpunit-5.7.9.phar /usr/bin/phpunit && \
-    # Install: Nails Command Line Tool
-    git clone https://github.com/nailsapp/command-line-tool ~/nails-command-line-tool && \
-    mv ~/nails-command-line-tool/nails /usr/bin/nails && \
-    rm -rf ~/nails-command-line-tool && \
+    curl -sS https://phar.phpunit.de/phpunit-6.5.phar -o phpunit-6.5.phar && \
+    chmod +x phpunit-6.5.phar && \
+    mv phpunit-6.5.phar /usr/bin/phpunit && \
     # Enable: mod_rewrite
     a2enmod rewrite && \
     a2enmod ssl && \
