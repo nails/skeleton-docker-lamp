@@ -5,7 +5,8 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
-COPY templates/install-laravel.sh /install-laravel.sh
+
+RUN templates/install-framework.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
@@ -42,7 +43,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl -sS https://phar.phpunit.de/phpunit-6.5.phar -o phpunit-6.5.phar && \
     chmod +x phpunit-6.5.phar && \
     mv phpunit-6.5.phar /usr/bin/phpunit && \
-    # Enable: mod_rewrite
+    # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
@@ -51,7 +52,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
         -newkey rsa:2048 -nodes -sha256 \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
-    # Install Laravel
-    /install-laravel.sh && \
+    # Ensure /var/www/html/public exists
+    mkdir -p /var/www/html/public && \
     # Restart apache
     service apache2 restart

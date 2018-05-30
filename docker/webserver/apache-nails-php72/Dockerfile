@@ -5,7 +5,6 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
-COPY templates/install-nails.sh /install-nails.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
@@ -46,7 +45,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     git clone https://github.com/nailsapp/command-line-tool ~/nails-command-line-tool && \
     mv ~/nails-command-line-tool/nails /usr/bin/nails && \
     rm -rf ~/nails-command-line-tool && \
-    # Enable: mod_rewrite
+    # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \

@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Run the installer if the ./www directory is not there
+if [ ! -d ./www ]; then
+    mkdir -p www
+    INSTALLER=$(cat docker-compose.yml | sed -n 's/ *build: "\(docker\/webserver\/.*\)"/\1/p');
+    ./"$INSTALLER/templates/install-framework.sh"
+fi
+
+# Bring the containers up
 docker-compose up -d
+
 # Configure and start cron
 docker-compose exec webserver /cron.sh

@@ -42,7 +42,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl -sS https://phar.phpunit.de/phpunit-6.5.phar -o phpunit-6.5.phar && \
     chmod +x phpunit-6.5.phar && \
     mv phpunit-6.5.phar /usr/bin/phpunit && \
-    # Enable: mod_rewrite
+    # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
