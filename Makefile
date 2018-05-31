@@ -29,7 +29,7 @@ build-containers:
 
 
 # --------------------------------------------------------------------------
-# Start all containers and build
+# Start all containers, install framework if necessary, and start cron
 # --------------------------------------------------------------------------
 up:
 	@./docker/scripts/up.sh

@@ -10,7 +10,7 @@ help             - Prints this message
 build            - Executes ./www/build.sh within the context of the web server container
 watch            - Executes ./www/watch.sh within the context of the web server container
 build-containers - Builds the project containers
-up               - Start all containers and build
+up               - Start all containers, install framework if necessary, and start cron
 down             - Stop all containers
 clean            - Stop, then remove, all containers
 bash             - SSH into the web server container

@@ -51,7 +51,7 @@ Command                  | Value
 `make build`             | Executes `./www/build.sh` within the context of the web server container
 `make watch`             | Executes `./www/watch.sh` within the context of the web server container
 `make build-containers`  | Builds the project containers
-`make up`                | Start all containers and build
+`make up`                | Start all containers, install framework if necessary, and start cron
 `make down`              | Stop all containers
 `make clean`             | Stop, then remove, all containers
 `make bash`              | SSH into the web server container
