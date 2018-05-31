@@ -4,7 +4,10 @@
 if [ ! -d ./www ]; then
     mkdir -p www
     INSTALLER=$(cat docker-compose.yml | sed -n 's/ *build: "\(docker\/webserver\/.*\)"/\1/p');
-    ./"$INSTALLER/templates/install-framework.sh"
+    INSTALLER_PATH="$INSTALLER/templates/install-framework.sh"
+    if [ -f $INSTALLER_PATH ]; then
+        ./"$INSTALLER_PATH"
+    fi
 fi
 
 # Bring the containers up

@@ -7,4 +7,4 @@ echo "+----------------------------+"
 # --------------------------------------------------------------------------
 
 echo "... installing Laravel"
-cd www && composer create-project --prefer-dist laravel/laravel .
+composer create-project --prefer-dist laravel/laravel www

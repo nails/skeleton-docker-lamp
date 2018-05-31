@@ -13,9 +13,12 @@ A _slightly_ opinionated, but **really easy to use** Docker LAMP stack.
     - Composer
     - NodeJS
     - Certbot (for SSL certificates)
+  - [Support for various Frameworks](#frameworks)
+    - [Nails](#nails)
+    - [Laravel](#laravel)
+    - [WordPress](#wordpress)
   - [Mailhog](https://github.com/mailhog/MailHog) installed for working with emails locally
   - [Nails Command Line Tool](https://github.com/nailsapp/command-line-tool)
-
 
 
 ## How to use
@@ -48,6 +51,7 @@ Feel free to add your own, as per your project's needs.
 
 `docker-compose.yml` contains the basic requirements to run the project, exclusive of any credentials (e.g database). Configure your containers for the appropriate environment using `docker-compose.override.yml`; the included override contains default credentials for a development environment and should be replaced for other environments.
 
+
 ## Webserver
 
 The webserver container has all you need enabled for development; you can specify custom configurations using the `./docker/webserver/templates/*` files.
@@ -64,7 +68,7 @@ In addition, the following directories are of interest:
 The webserver is equipped with a self-signed SSL certificate by default, so you can test secure connections on `localhost`. `certbot` is also available for generating, and renewing, valid certificates via LetsEncrypt.
 
 
-# Cron
+## Cron
 
 There is an empty crontab which you can populate at `./docker/webserver/crontab`.
 
@@ -93,6 +97,23 @@ Username      | `<blank>`
 Password      | `<blank>`
 Port          | `1025`
 GUI           | `http://localhost:8025`
+
+
+## Frameworks
+
+### Nails
+
+> @todo - write this up
+
+
+### Laravel
+
+> @todo - write this up
+
+
+### WordPress
+
+> @todo - write this up
 
 
 ## RoadMap

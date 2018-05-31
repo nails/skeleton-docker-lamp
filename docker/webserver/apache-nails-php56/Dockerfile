@@ -53,7 +53,5 @@ RUN useradd -u 1000 -m www-bridge-user && \
     openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
         -newkey rsa:2048 -nodes -sha256 \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
-    # Install Nails
-    /install-nails.sh && \
     # Restart apache
     service apache2 restart

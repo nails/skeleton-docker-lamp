@@ -5,7 +5,6 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
-COPY templates/install-nails.sh /install-nails.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
