@@ -57,8 +57,8 @@ Command                  | Value
 `make ssh`               | SSH into the web server container
 `make ssh-root`          | SSH into the web server container, as root
 `make test`              | Run tests
-`ssl-create`             | Creates a new LetsEncrypt SSL certificate
-`ssl-renew`              | Renews a previously created LetsEncrypt SSL certificate
+`make ssl-create`        | Creates a new LetsEncrypt SSL certificate
+`make ssl-renew`         | Renews a previously created LetsEncrypt SSL certificate
 
 Feel free to add your own, as per your project's needs.
 
