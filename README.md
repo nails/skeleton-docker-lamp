@@ -54,8 +54,8 @@ Command                  | Value
 `make up`                | Start all containers, install framework if necessary, and start cron
 `make down`              | Stop all containers
 `make clean`             | Stop, then remove, all containers
-`make bash`              | SSH into the web server container
-`make bash-root`         | SSH into the web server container, as root
+`make ssh`               | SSH into the web server container
+`make ssh-root`          | SSH into the web server container, as root
 `make test`              | Run tests
 `ssl-create`             | Creates a new LetsEncrypt SSL certificate
 `ssl-renew`              | Renews a previously created LetsEncrypt SSL certificate
