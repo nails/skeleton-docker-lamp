@@ -7,18 +7,16 @@ Docker LAMP
 The following commands are available:
 
 help             - Prints this message
-build            - Executes ./www/build.sh within the context of the webserver container
-watch            - Executes ./www/watch.sh within the context of the webserver container
+build            - Executes ./www/build.sh within the context of the web server container
+watch            - Executes ./www/watch.sh within the context of the web server container
 build-containers - Builds the project containers
-start            - Start all containers and build
-stop             - Stop all containers
+up               - Start all containers, install framework if necessary, and start cron
+down             - Stop all containers
 clean            - Stop, then remove, all containers
-bash             - SSH into the webserver container
-bash-root        - SSH into the webserver container, as root
+ssh              - SSH into the web server container
+ssh-root         - SSH into the web server container, as root
 test             - Run tests
 ssl-create       - Creates a new LetsEncrypt SSL certificate
 ssl-renew        - Renews a previously created LetsEncrypt SSL certificate
-up               - Alias of start
-down             - Alias of stop
 
 EndOfMessage

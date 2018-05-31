@@ -7,7 +7,7 @@ webserver:
     environment:
       - ENVIRONMENT=DEVELOPMENT
       - DB_HOST=db
-      - DB_USER=docker
+      - DB_USERNAME=docker
       - DB_PASSWORD=docker
       - DB_DATABASE=dev
       - MAIL_HOST=mail

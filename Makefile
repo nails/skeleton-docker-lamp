@@ -7,7 +7,7 @@ help:
 
 # --------------------------------------------------------------------------
 # Builds the project
-# - Executes ./www/build.sh within the context of the webserver container
+# - Executes ./www/build.sh within the context of the web server container
 # --------------------------------------------------------------------------
 build:
 	@./docker/scripts/build.sh
@@ -15,7 +15,7 @@ build:
 
 # --------------------------------------------------------------------------
 # Watches the project
-# - Executes ./www/watch.sh within the context of the webserver container
+# - Executes ./www/watch.sh within the context of the web server container
 # --------------------------------------------------------------------------
 watch:
 	@./docker/scripts/watch.sh
@@ -29,17 +29,17 @@ build-containers:
 
 
 # --------------------------------------------------------------------------
-# Start all containers and build
+# Start all containers, install framework if necessary, and start cron
 # --------------------------------------------------------------------------
-start:
-	@./docker/scripts/start.sh
+up:
+	@./docker/scripts/up.sh
 
 
 # --------------------------------------------------------------------------
 # Stop all containers
 # --------------------------------------------------------------------------
-stop:
-	@./docker/scripts/stop.sh
+down:
+	@./docker/scripts/down.sh
 
 
 # --------------------------------------------------------------------------
@@ -52,15 +52,15 @@ clean:
 # --------------------------------------------------------------------------
 # SSH into the Apache container
 # --------------------------------------------------------------------------
-bash:
-	@./docker/scripts/bash.sh
+ssh:
+	@./docker/scripts/ssh.sh
 
 
 # --------------------------------------------------------------------------
 # SSH into the Apache container, as root
 # --------------------------------------------------------------------------
-bash-root:
-	@./docker/scripts/bash-root.sh
+ssh-root:
+	@./docker/scripts/ssh-root.sh
 
 
 # --------------------------------------------------------------------------
@@ -82,10 +82,3 @@ ssl-create:
 # --------------------------------------------------------------------------
 ssl-renew:
 	@./docker/scripts/ssl-renew.sh
-
-
-# --------------------------------------------------------------------------
-# Aliases
-# --------------------------------------------------------------------------
-up: start
-down: stop

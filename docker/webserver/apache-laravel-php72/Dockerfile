@@ -6,6 +6,8 @@ COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
 
+RUN templates/install-framework.sh
+
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
     echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list && \
@@ -41,11 +43,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl -sS https://phar.phpunit.de/phpunit-6.5.phar -o phpunit-6.5.phar && \
     chmod +x phpunit-6.5.phar && \
     mv phpunit-6.5.phar /usr/bin/phpunit && \
-    # Install: Nails Command Line Tool
-    git clone https://github.com/nailsapp/command-line-tool ~/nails-command-line-tool && \
-    mv ~/nails-command-line-tool/nails /usr/bin/nails && \
-    rm -rf ~/nails-command-line-tool && \
-    # Enable: mod_rewrite
+    # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
@@ -54,5 +52,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
         -newkey rsa:2048 -nodes -sha256 \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
+    # Ensure /var/www/html/public exists
+    mkdir -p /var/www/html/public && \
     # Restart apache
     service apache2 restart
