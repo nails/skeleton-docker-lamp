@@ -87,6 +87,8 @@ In addition, the following directories are of interest:
 
 > By default a bare Apache / PHP 7.2 container is made; you can swap this out for a PHP 5.6 web server by updating the build image used in `docker-compose.yml` to `docker/webserver/apache-php56`. Alternatively, you can use one of the [framework](#frameworks) orientated images.
 
+> Note: On first install the `www` folder will be created and the chosen framework (if applicable) installed into it.
+
 
 #### SSL
 
