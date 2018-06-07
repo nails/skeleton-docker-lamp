@@ -26,7 +26,8 @@ RUN useradd -u 1000 -m www-bridge-user && \
     vim \
     libcurl4-openssl-dev \
     gnupg2 \
-    mysql-client && \
+    mysql-client \
+    ssh-client && \
     apt-get install python-certbot-apache -y -t stretch-backports && \
     rm -rf /var/lib/apt/lists/* && \
     # Install: Node
