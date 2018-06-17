@@ -24,7 +24,8 @@ RUN useradd -u 1000 -m www-bridge-user && \
     vim \
     libcurl4-openssl-dev \
     gnupg2 \
-    mysql-client && \
+    mysql-client \
+    ssh-client && \
     apt-get install python-certbot-apache -y -t jessie-backports && \
     rm -rf /var/lib/apt/lists/* && \
     # Install: PHP extensions
