@@ -53,6 +53,7 @@ Command                  | Value
 `make build-containers`  | Builds the project containers
 `make up`                | Start all containers, install framework if necessary, and start cron
 `make down`              | Stop all containers
+`make restart`           | Restart all containers
 `make clean`             | Stop, then remove, all containers
 `make ssh`               | SSH into the web server container
 `make ssh-root`          | SSH into the web server container, as root
