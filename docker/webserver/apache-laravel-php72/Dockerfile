@@ -6,8 +6,6 @@ COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
 
-RUN templates/install-framework.sh
-
 RUN useradd -u 1000 -m www-bridge-user && \
     # Add backports (for LetsEncrypt)
     echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list && \
