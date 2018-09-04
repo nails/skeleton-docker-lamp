@@ -6,5 +6,8 @@ echo "+----------------------------+"
 
 # --------------------------------------------------------------------------
 
+echo "... installing Laravel installer"
+composer global require "laravel/installer"
+
 echo "... installing Laravel"
-composer create-project --prefer-dist laravel/laravel www
+laravel new www --force
