@@ -46,6 +46,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
+    a2enmod expires && \
     # Create local SSL certificate
     mkdir -p /etc/ssl/localhost && \
     openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
