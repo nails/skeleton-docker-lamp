@@ -5,6 +5,7 @@ webserver:
         - ~/.composer:/home/www-bridge-user/.composer:delegated
         - ~/.npm:/home/www-bridge-user/.npm:delegated
     environment:
+      - DOMAIN=localhost
       - ENVIRONMENT=DEVELOPMENT
       - DB_HOST=db
       - DB_USERNAME=docker
