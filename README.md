@@ -150,7 +150,7 @@ By default, the web server is a fairly standard Apache instance with PHP 7.2 ins
 
 **`docker/webserver/apache-nails-php72`**
 
-This framework will install Nails to `www` with default settings. It will also install the [Nails Command Line Tool](https://github.com/nailsapp/command-line-tool).
+This framework will install Nails to `www` with default settings. It will also install the [Nails Command Line Tool](https://github.com/nails/command-line-tool).
 
 
 ### Laravel

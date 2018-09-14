@@ -8,7 +8,7 @@ echo "+--------------------------+"
 
 echo "... installing Nails"
 echo "... downloading skeleton"
-curl -s -o ./www/skeleton.zip -L https://github.com/nailsapp/skeleton-app/archive/master.zip
+curl -s -o ./www/skeleton.zip -L https://github.com/nails/skeleton-app/archive/master.zip
 
 echo "... extracting skeleton"
 unzip -q -d ./www ./www/skeleton.zip
