@@ -43,7 +43,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     chmod +x phpunit-6.5.phar && \
     mv phpunit-6.5.phar /usr/bin/phpunit && \
     # Install: Nails Command Line Tool
-    git clone https://github.com/nailsapp/command-line-tool ~/nails-command-line-tool && \
+    git clone https://github.com/nails/command-line-tool ~/nails-command-line-tool && \
     mv ~/nails-command-line-tool/nails /usr/bin/nails && \
     rm -rf ~/nails-command-line-tool && \
     # Enable: Apache modules
