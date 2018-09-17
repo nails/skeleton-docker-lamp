@@ -15,6 +15,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     cron \
     git \
     zip \
+    unzip \
     libpng-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
