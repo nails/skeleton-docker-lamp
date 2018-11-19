@@ -58,6 +58,7 @@ Command                  | Value
 `make ssh`               | SSH into the web server container
 `make ssh-root`          | SSH into the web server container, as root
 `make test`              | Executes `./www/test.sh` within the context of the web server container
+`make test-fresh`         | Executes `./www/test.sh` within the context of the web server container, triggering a database refresh
 `make ssl-create`        | Creates a new LetsEncrypt SSL certificate
 `make ssl-renew`         | Renews a previously created LetsEncrypt SSL certificate
 
