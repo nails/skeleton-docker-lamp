@@ -7,7 +7,7 @@ help:
 
 # --------------------------------------------------------------------------
 # Builds the project
-# - Executes ./www/build.sh within the context of the web server container
+# - Executes ./www/scripts/build.sh within the context of the web server container
 # --------------------------------------------------------------------------
 build:
 	@./docker/scripts/build.sh
@@ -15,7 +15,7 @@ build:
 
 # --------------------------------------------------------------------------
 # Watches the project
-# - Executes ./www/watch.sh within the context of the web server container
+# - Executes ./www/scripts/watch.sh within the context of the web server container
 # --------------------------------------------------------------------------
 watch:
 	@./docker/scripts/watch.sh

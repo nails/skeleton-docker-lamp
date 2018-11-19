@@ -1,2 +1,9 @@
+# --------------------------------------------------------------------------
 # Crontab
-# Specify cron commands in here
+# Add your recurring jobs, this will populate the www-bridge-user's crontab
+#
+# NOTE: use absolute paths for binaries. e.g. /usr/local/bin/php
+# --------------------------------------------------------------------------
+
+# A sample cron job
+# * * * * * cd /var/www/html && /usr/local/bin/php cron.php >/dev/null 2>&1
