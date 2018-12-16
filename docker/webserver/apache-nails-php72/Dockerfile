@@ -39,10 +39,9 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
+    echo 'PATH="$PATH:/home/www-bridge-user/.composer/vendor/bin"' >> /home/www-bridge-user/.bashrc && \
     # Install: Nails Command Line Tool
-    git clone https://github.com/nails/command-line-tool ~/nails-command-line-tool && \
-    mv ~/nails-command-line-tool/nails /usr/bin/nails && \
-    rm -rf ~/nails-command-line-tool && \
+    su www-bridge-user -c 'composer global require nails/command-line-tool' && \
     # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
