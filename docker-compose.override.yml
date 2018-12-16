@@ -1,9 +1,6 @@
 webserver:
     links:
         - mail
-    volumes:
-        - ~/.composer:/home/www-bridge-user/.composer:delegated
-        - ~/.npm:/home/www-bridge-user/.npm:delegated
     environment:
       - DOMAIN=localhost
       - ENVIRONMENT=DEVELOPMENT
