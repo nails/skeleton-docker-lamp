@@ -1,5 +1,5 @@
 webserver:
-    build: "docker/webserver/apache-php72"
+    build: "docker/webserver/apache-nails-php72"
     links:
         - db
     ports:
