@@ -6,13 +6,10 @@ echo "+--------------------------+"
 
 # --------------------------------------------------------------------------
 
-echo "... installing Nails"
-echo "... downloading skeleton"
-curl -s -o ./www/skeleton.zip -L https://github.com/nails/skeleton-app/archive/master.zip
+if ! [ -x "$(command -v nails)" ]; then
+    echo "... installing Nails Command Line Tool"
+    composer global require "nails/command-line-tool"
+fi
 
-echo "... extracting skeleton"
-unzip -q -d ./www ./www/skeleton.zip
-mv ./www/skeleton-app-master/[a-zA-Z]* ./www
-mv ./www/skeleton-app-master/.[a-zA-Z]* ./www
-rm ./www/skeleton.zip
-rmdir ./www/skeleton-app-master
+echo "... installing Nails"
+nails new --dir="www" --no-docker
