@@ -34,7 +34,11 @@ RUN useradd -u 1000 -m www-bridge-user && \
     docker-php-ext-install pdo pdo_mysql mysqli gd curl mcrypt zip && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
-    apt-get install -y nodejs && \
+    apt-get update -y && apt-get install -y nodejs && \
+    # Install: Yarn
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update -y && apt-get install -y yarn && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \

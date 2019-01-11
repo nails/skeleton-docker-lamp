@@ -27,11 +27,12 @@ A _slightly_ opinionated, but **really easy to use** Docker LAMP stack with out-
   - A LAMP environment running:
     - Apache 2.4
     - PHP 7.2 or 5.6
-    - MySQL 5.6
+    - MySQL 5.7
     - Composer
-    - NodeJS
+    - NodeJS/NPM
+    - Yarn
     - Certbot (for SSL certificates)
-  - [Support for various Frameworks](#frameworks)
+  - [Out of the box support for various Frameworks](#frameworks)
     - [Nails](#nails)
     - [Laravel](#laravel)
     - [WordPress](#wordpress)
