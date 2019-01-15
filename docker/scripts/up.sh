@@ -15,3 +15,8 @@ docker-compose up -d
 
 # Configure and start cron
 docker-compose exec webserver /cron.sh
+
+# If there is no vendor folder then execute a build
+if [ ! -d ./www/vendor ]; then
+    make build
+fi
