@@ -17,6 +17,7 @@ clean            - Stop, then remove, all containers
 ssh              - SSH into the web server container
 ssh-root         - SSH into the web server container, as root
 test             - Run tests
+test-fresh       - Run tests using a freshly migrated database
 ssl-create       - Creates a new LetsEncrypt SSL certificate
 ssl-renew        - Renews a previously created LetsEncrypt SSL certificate
 
