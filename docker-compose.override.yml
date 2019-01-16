@@ -3,6 +3,7 @@ webserver:
         - mail
     environment:
       - DOMAIN=localhost
+      - PRIVATE_KEY=
       - ENVIRONMENT=DEVELOPMENT
       - DB_HOST=db
       - DB_USERNAME=docker
