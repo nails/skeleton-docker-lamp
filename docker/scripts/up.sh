@@ -18,5 +18,8 @@ docker-compose exec webserver /cron.sh
 
 # If there is no vendor folder then execute a build
 if [ ! -d ./www/vendor ]; then
+    echo ""
+    echo "No vendor folder detected; building project for first time"
+    echo ""
     make build
 fi
