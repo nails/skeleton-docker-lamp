@@ -16,6 +16,9 @@ docker-compose up -d
 # Configure and start cron
 docker-compose exec webserver /cron.sh
 
+# Install SSL certificate
+make ssl-create
+
 # If there is no vendor folder then execute a build
 if [ ! -d ./www/vendor ]; then
     echo ""

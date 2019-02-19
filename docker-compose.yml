@@ -8,6 +8,7 @@ webserver:
     volumes:
         - ./www:/var/www/html:cached
         - ./docker/webserver/crontab:/var/spool/cron/crontabs/www-bridge-user:cached
+        - ./docker/webserver/crontab-root:/var/spool/cron/crontabs/root:cached
         - ./docker/webserver/logs:/var/log:delegated
         - ./docker/webserver/letsencrypt:/etc/letsencrypt:delegated
 db:
