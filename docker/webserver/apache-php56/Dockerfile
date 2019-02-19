@@ -5,10 +5,9 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/cron.sh /cron.sh
+COPY templates/ssl-create.sh /ssl-create.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
-    # Add backports (for LetsEncrypt)
-    echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/backports.list && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
