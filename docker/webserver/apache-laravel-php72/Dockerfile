@@ -27,8 +27,10 @@ RUN useradd -u 1000 -m www-bridge-user && \
     gnupg2 \
     mysql-client \
     ssh-client && \
-    apt-get install python-certbot-apache -y -t stretch-backports && \
     rm -rf /var/lib/apt/lists/* && \
+    # Install: certbot
+    curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
+    chmod a+x /usr/local/bin/certbot && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
     apt-get update -y && apt-get install -y nodejs && \

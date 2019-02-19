@@ -27,8 +27,10 @@ RUN useradd -u 1000 -m www-bridge-user && \
     gnupg2 \
     mysql-client \
     ssh-client && \
-    apt-get install python-certbot-apache -y -t jessie-backports && \
     rm -rf /var/lib/apt/lists/* && \
+    # Install: certbot
+    curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
+    chmod a+x /usr/local/bin/certbot && \
     # Install: PHP extensions
     docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install pdo pdo_mysql mysqli gd curl mcrypt zip && \
