@@ -2,15 +2,16 @@ webserver:
     links:
         - mail
     environment:
-      - DOMAIN=localhost
-      - PRIVATE_KEY=
-      - ENVIRONMENT=DEVELOPMENT
-      - DB_HOST=db
-      - DB_USERNAME=docker
-      - DB_PASSWORD=docker
-      - DB_DATABASE=dev
-      - MAIL_HOST=mail
-      - MAIL_PORT=1025
+        - DOMAIN=localhost
+        - PRIVATE_KEY=
+        - CERTBOT_EMAIL=
+        - ENVIRONMENT=DEVELOPMENT
+        - DB_HOST=db
+        - DB_USERNAME=docker
+        - DB_PASSWORD=docker
+        - DB_DATABASE=dev
+        - MAIL_HOST=mail
+        - MAIL_PORT=1025
 mail:
     build: "docker/mail"
     ports:

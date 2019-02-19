@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose exec webserver certbot --apache
+docker-compose exec webserver /ssl-create.sh
