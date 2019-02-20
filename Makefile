@@ -1,11 +1,4 @@
 # --------------------------------------------------------------------------
-# Outputs help information
-# --------------------------------------------------------------------------
-help:
-	@./docker/scripts/help.sh
-
-
-# --------------------------------------------------------------------------
 # Builds the project
 # - Executes ./www/scripts/build.sh within the context of the web server container
 # --------------------------------------------------------------------------
@@ -14,25 +7,26 @@ build:
 
 
 # --------------------------------------------------------------------------
-# Watches the project
-# - Executes ./www/scripts/watch.sh within the context of the web server container
-# --------------------------------------------------------------------------
-watch:
-	@./docker/scripts/watch.sh
-
-
-# --------------------------------------------------------------------------
 # Builds the project containers
 # --------------------------------------------------------------------------
 build-containers:
-	@./docker/scripts/build-containers.sh
+	@./docker/scripts/build.sh containers
 
 
 # --------------------------------------------------------------------------
-# Start all containers, install framework if necessary, and start cron
+# Drops the database and runs a full build
+# - Drops the database
+# - Executes ./www/scripts/build.sh within the context of the web server container
 # --------------------------------------------------------------------------
-up:
-	@./docker/scripts/up.sh
+build-fresh:
+	@./docker/scripts/build.sh fresh
+
+
+# --------------------------------------------------------------------------
+# Stop, then remove, all containers
+# --------------------------------------------------------------------------
+clean:
+	@./docker/scripts/clean.sh
 
 
 # --------------------------------------------------------------------------
@@ -40,6 +34,13 @@ up:
 # --------------------------------------------------------------------------
 down:
 	@./docker/scripts/down.sh
+
+
+# --------------------------------------------------------------------------
+# Outputs help information
+# --------------------------------------------------------------------------
+help:
+	@./docker/scripts/help.sh
 
 
 # --------------------------------------------------------------------------
@@ -58,28 +59,36 @@ seed:
 
 
 # --------------------------------------------------------------------------
-# Stop, then remove, all containers
-# --------------------------------------------------------------------------
-clean:
-	@./docker/scripts/clean.sh
-
-
-# --------------------------------------------------------------------------
-# SSH into the Apache container
+# SSH into the web server container
 # --------------------------------------------------------------------------
 ssh:
 	@./docker/scripts/ssh.sh
 
 
 # --------------------------------------------------------------------------
-# SSH into the Apache container, as root
+# SSH into the web server container, as root
 # --------------------------------------------------------------------------
 ssh-root:
-	@./docker/scripts/ssh-root.sh
+	@./docker/scripts/ssh.sh root
+
+
+# --------------------------------------------------------------------------
+# Renews a previously created LetsEncrypt SSL certificate
+# --------------------------------------------------------------------------
+ssl-create:
+	@./docker/scripts/ssl.sh create
+
+
+# --------------------------------------------------------------------------
+# Renews a previously created LetsEncrypt SSL certificate
+# --------------------------------------------------------------------------
+ssl-renew:
+	@./docker/scripts/ssl.sh renew
 
 
 # --------------------------------------------------------------------------
 # Run tests
+# Executes ./www/test.sh within the context of the web server container
 # --------------------------------------------------------------------------
 test:
 	@./docker/scripts/test.sh
@@ -87,20 +96,22 @@ test:
 
 # --------------------------------------------------------------------------
 # Run tests on a fresh database
+# Executes ./www/test.sh within the context of the web server container
 # --------------------------------------------------------------------------
 test-fresh:
 	@./docker/scripts/test.sh fresh
 
 
 # --------------------------------------------------------------------------
-# Renews a previously created LetsEncrypt SSL certificate
+# Start all containers, install framework if necessary, and start cron
 # --------------------------------------------------------------------------
-ssl-create:
-	@./docker/scripts/ssl-create.sh
+up:
+	@./docker/scripts/up.sh
 
 
 # --------------------------------------------------------------------------
-# Renews a previously created LetsEncrypt SSL certificate
+# Watches the project for changes
+# - Executes ./www/scripts/watch.sh within the context of the web server container
 # --------------------------------------------------------------------------
-ssl-renew:
-	@./docker/scripts/ssl-renew.sh
+watch:
+	@./docker/scripts/watch.sh
