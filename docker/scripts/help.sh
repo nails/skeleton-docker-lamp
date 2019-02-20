@@ -13,6 +13,7 @@ build-containers - Builds the project containers
 up               - Start all containers, install framework if necessary, and start cron
 down             - Stop all containers
 restart          - Restart all containers
+seed             - Executes ./www/seed.sh within the context of the web server container
 clean            - Stop, then remove, all containers
 ssh              - SSH into the web server container
 ssh-root         - SSH into the web server container, as root

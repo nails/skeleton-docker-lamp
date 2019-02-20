@@ -47,6 +47,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     echo 'PATH="$PATH:/home/www-bridge-user/.composer/vendor/bin"' >> /home/www-bridge-user/.bashrc && \
     # Install: Nails Command Line Tool
     su www-bridge-user -c 'composer global require nails/command-line-tool' && \
+    ln -s /home/www-bridge-user/.composer/vendor/bin/nails /usr/local/bin/nails && \
     # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \
