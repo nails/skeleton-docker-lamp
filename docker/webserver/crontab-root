@@ -1,11 +1,11 @@
 # --------------------------------------------------------------------------
-# Crontab (root)
+# Crontab
 # Add your recurring jobs, this will populate root's crontab
 #
-# NOTE: use absolute paths for binaries. e.g. /usr/local/bin/php
+# NOTE: Set the environment properly by sourcing the user's ~/.profile
 # --------------------------------------------------------------------------
 
 # Renew certificates
 # - Run twice in case LetsEnrypt is unavailable
 # - Run at random minutes to help reduce load on LetsEncrypt
-7,47 3 * * * /usr/local/bin/certbot renew
+7,47 3 * * * . $HOME/.profile; /usr/local/bin/certbot renew
