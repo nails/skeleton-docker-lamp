@@ -5,6 +5,7 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
+COPY templates/cron.sh /cron.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     cp /etc/skel/.bashrc ~/ && \
@@ -29,6 +30,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     gnupg2 \
     mysql-client \
     ssh-client && \
+    # Purge so apt-get update is more reliable
     rm -rf /var/lib/apt/lists/* && \
     # Logging: Enable cron logs
     sed -i "s:#cron:cron:g" /etc/rsyslog.conf && \
@@ -49,10 +51,10 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
-    echo 'PATH="$PATH:/home/www-bridge-user/.composer/vendor/bin"' >> /home/www-bridge-user/.bashrc && \
     # Install: Nails Command Line Tool
     su www-bridge-user -c 'composer global require nails/command-line-tool' && \
     ln -s /home/www-bridge-user/.composer/vendor/bin/nails /usr/local/bin/nails && \
+    ln -s /home/www-bridge-user/.composer/vendor/bin/nails-cli /usr/local/bin/nails-cli && \
     # Enable: Apache modules
     a2enmod rewrite && \
     a2enmod ssl && \

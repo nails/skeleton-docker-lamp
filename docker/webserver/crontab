@@ -2,10 +2,11 @@
 # Crontab
 # Add your recurring jobs, this will populate www-bridge-user's crontab
 #
-# NOTE: Set the environment properly by sourcing the user's ~/.profile
+# NOTE: cron.sh is used to configure the cron enironment
 # --------------------------------------------------------------------------
 
 SHELL=/bin/bash
+BASH_ENV="/cron.sh"
 
 # A sample cron job
-* * * * * . $HOME/.profile; cd /var/www/html && nails >> ~/cron.txt 2>&1
+# * * * * * cd /var/www/html && echo "hello!"

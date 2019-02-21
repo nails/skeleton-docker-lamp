@@ -5,6 +5,7 @@ COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
+COPY templates/cron.sh /cron.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
     cp /etc/skel/.bashrc ~/ && \
@@ -29,6 +30,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     gnupg2 \
     mysql-client \
     ssh-client && \
+    # Purge so apt-get update is more reliable
     rm -rf /var/lib/apt/lists/* && \
     # Logging: Enable cron logs
     sed -i "s:#cron:cron:g" /etc/rsyslog.conf && \
