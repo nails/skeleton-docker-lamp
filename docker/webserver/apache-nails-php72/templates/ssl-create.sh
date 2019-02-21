@@ -13,11 +13,18 @@ if [  "$DOMAIN" != "localhost"  ]; then
         --webroot \
         --webroot-path /var/www/html || exit 1
 
-    SSL_BLOCK="SSLEngine on\nSSLCertificateFile      /etc/letsencrypt/live/$DOMAIN/fullchain.pem\n    SSLCertificateKeyFile   /etc/letsencrypt/live/$DOMAIN/privkey.pem\n    SSLCertificateChainFile /etc/letsencrypt/live/$DOMAIN/privkey.pem"
+   SSL_CERT="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
+   SSL_KEY="/etc/letsencrypt/live/$DOMAIN/privkey.pem"
+   SSL_CHAIN="/etc/letsencrypt/live/$DOMAIN/privkey.pem"
 else
-    SSL_BLOCK="SSLEngine on\n    SSLCertificateFile    /etc/ssl/localhost/localhost.crt\n    SSLCertificateKeyFile /etc/ssl/localhost/localhost.key"
+    SSL_CERT="/etc/ssl/localhost/localhost.crt"
+    SSL_KEY="/etc/ssl/localhost/localhost.key"
+    SSL_CHAIN="/etc/ssl/localhost/localhost.key"
 fi
 
-sed -i "s:# SSL-BLOCK:$SSL_BLOCK:g" /etc/apache2/apache2.conf
+sed -i -E "s:SSLCertificateFile(.*) (.*):SSLCertificateFile\1 $SSL_CERT:g" /etc/apache2/apache2.conf
+sed -i -E "s:SSLCertificateKeyFile(.*) (.*):SSLCertificateKeyFile\1 $SSL_KEY:g" /etc/apache2/apache2.conf
+sed -i -E "s:SSLCertificateChainFile(.*) (.*):SSLCertificateChainFile\1 $SSL_KEY:g" /etc/apache2/apache2.conf
+
 echo "Reloading apache"
 service apache2 reload
