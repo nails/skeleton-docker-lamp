@@ -19,7 +19,7 @@ if [  "$DOMAIN" != "localhost"  ]; then
 else
     SSL_CERT="/etc/ssl/localhost/localhost.crt"
     SSL_KEY="/etc/ssl/localhost/localhost.key"
-    SSL_CHAIN="/etc/ssl/localhost/localhost.key"
+    SSL_CHAIN="/etc/ssl/localhost/localhost.pem"
 fi
 
 sed -i -E "s:SSLCertificateFile(.*) (.*):SSLCertificateFile\1 $SSL_CERT:g" /etc/apache2/apache2.conf

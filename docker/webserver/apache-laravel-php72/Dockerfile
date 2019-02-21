@@ -13,23 +13,23 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
-    rsyslog \
-    logrotate \
-    cron \
-    git \
-    zip \
-    unzip \
-    libpng-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libmcrypt-dev \
-    libnotify-bin \
-    curl \
-    vim \
-    libcurl4-openssl-dev \
-    gnupg2 \
-    mysql-client \
-    ssh-client && \
+        rsyslog \
+        logrotate \
+        cron \
+        git \
+        zip \
+        unzip \
+        libpng-dev \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libnotify-bin \
+        curl \
+        vim \
+        libcurl4-openssl-dev \
+        gnupg2 \
+        mysql-client \
+        ssh-client && \
     # Purge so apt-get update is more reliable
     rm -rf /var/lib/apt/lists/* && \
     # Logging: Enable cron logs
@@ -39,15 +39,26 @@ RUN useradd -u 1000 -m www-bridge-user && \
     chmod a+x /usr/local/bin/certbot && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
-    apt-get update -y && apt-get install -y nodejs && \
+    apt-get update -y && apt-get install -y \
+        nodejs && \
     # Install: Yarn
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update -y && apt-get install -y yarn && \
+    apt-get update -y && apt-get install -y \
+        yarn && \
     # Install: PHP extensions
-    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install pdo pdo_mysql mysqli gd curl zip && \
-    pecl install mcrypt-1.0.1 && \
+    docker-php-ext-configure gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install \
+        pdo \
+        pdo_mysql \
+        mysqli \
+        gd \
+        curl \
+        zip && \
+    pecl install \
+        mcrypt-1.0.1 && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
@@ -58,9 +69,29 @@ RUN useradd -u 1000 -m www-bridge-user && \
     a2enmod expires && \
     # Create local SSL certificate
     mkdir -p /etc/ssl/localhost && \
-    openssl req -x509 -out /etc/ssl/localhost/localhost.crt -keyout /etc/ssl/localhost/localhost.key \
-        -newkey rsa:2048 -nodes -sha256 \
-        -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
+    # Generate a key
+    openssl genrsa \
+        -out /etc/ssl/localhost/localhost.key 4096 && \
+    # Create a CSR
+    openssl req -new \
+        -out /etc/ssl/localhost/localhost.csr \
+        -key /etc/ssl/localhost/localhost.key \
+        -config /etc/ssl/localhost/localhost.ssl.conf &&\
+    # Generate the certificate
+    openssl x509 -req \
+        -days 3650 \
+        -in /etc/ssl/localhost/localhost.csr \
+        -signkey /etc/ssl/localhost/localhost.key \
+        -out /etc/ssl/localhost/localhost.crt \
+        -extensions req_ext \
+        -extfile /etc/ssl/localhost/localhost.ssl.conf && \
+    # Generate chainfile
+    openssl x509 -trustout \
+        -signkey /etc/ssl/localhost/localhost.key \
+        -days 365 \
+        -req \
+        -in /etc/ssl/localhost/localhost.csr \
+        -out /etc/ssl/localhost/localhost.pem && \
     # Ensure /var/www/html/public exists
     mkdir -p /var/www/html/public && \
     # Restart apache
