@@ -9,6 +9,7 @@ if [  "$DOMAIN" != "localhost"  ]; then
         --non-interactive \
         --agree-tos \
         -m $CERTBOT_EMAIL \
+        --expand \
         --webroot \
         --webroot-path /var/www/html || exit 1
 
