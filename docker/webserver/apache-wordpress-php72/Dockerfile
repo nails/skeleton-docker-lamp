@@ -4,13 +4,17 @@ FROM php:7.2-apache
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
-COPY templates/cron.sh /cron.sh
 COPY templates/ssl-create.sh /ssl-create.sh
+COPY templates/cron.sh /cron.sh
 
 RUN useradd -u 1000 -m www-bridge-user && \
+    cp /etc/skel/.bashrc ~/ && \
+    cp /etc/skel/.profile ~/ && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
+    rsyslog \
+    logrotate \
     cron \
     git \
     zip \
@@ -26,7 +30,10 @@ RUN useradd -u 1000 -m www-bridge-user && \
     gnupg2 \
     mysql-client \
     ssh-client && \
+    # Purge so apt-get update is more reliable
     rm -rf /var/lib/apt/lists/* && \
+    # Logging: Enable cron logs
+    sed -i "s:#cron:cron:g" /etc/rsyslog.conf && \
     # Install: certbot
     curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
     chmod a+x /usr/local/bin/certbot && \
@@ -55,4 +62,11 @@ RUN useradd -u 1000 -m www-bridge-user && \
         -newkey rsa:2048 -nodes -sha256 \
         -subj '/CN=localhost' -extensions EXT -config /etc/ssl/localhost/localhost.ssl.conf && \
     # Restart apache
-    service apache2 restart
+    service apache2 restart && \
+    # Configure services to start on boot
+    update-rc.d rsyslog enable && \
+    update-rc.d cron enable
+
+# Install: bash aliases (after www-bridge-user has been created)
+COPY templates/.bash_aliases /root
+COPY templates/.bash_aliases /home/www-bridge-user
