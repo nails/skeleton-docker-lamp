@@ -50,7 +50,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
         mcrypt \
         zip && \
     # Install: Node
-    curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
     apt-get update -y && apt-get install -y && \
         nodejs && \
     # Install: Yarn
