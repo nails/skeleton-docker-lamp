@@ -51,7 +51,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
         zip && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
-    apt-get update -y && apt-get install -y
+    apt-get update -y && apt-get install -y && \
         nodejs && \
     # Install: Yarn
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
