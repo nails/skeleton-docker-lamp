@@ -38,7 +38,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
     chmod a+x /usr/local/bin/certbot && \
     # Install: Node
-    curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
     apt-get update -y && apt-get install -y \
         nodejs && \
     # Install: Yarn
