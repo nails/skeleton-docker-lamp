@@ -78,16 +78,19 @@ In addition, the following directories are of interest:
 - Web server logs are available at `./docker/webserver/logs`
 - LetsEncrypt configurations are available at `./docker/webserver/letsencrypt`
 
-> By default an Apache / PHP 7.2 container is made with the Nails CLI tool installed; you can swap this out for a PHP 5.6 web server by updating the build image used in `docker-compose.yml` to `docker/webserver/apache-php56`. Alternatively, you can use one of the [framework](#frameworks) orientated images.
-
 > Note: On first install the `www` folder will be created and the chosen framework (if applicable) installed into it.
 
 
 #### SSL
 
-The web server is equipped with a self-signed SSL certificate by default, so you can test secure connections on `localhost`. `certbot` is also available for generating, and renewing, valid certificates via LetsEncrypt.
+Upon running `make up` the webserver container will generate a certificate for the configured `$DOMAIN`, if one has already been egenrated it'll be reinstalled if it isn't already.
+
+When working on `localhost` a self-signed certificate will be generated, for all other domains (as specified by the `$DOMAIN` env var both the naked domain and `www` subdomain will have a Let's Encrypt certificate generated and installed.
 
 > When working on `localhost` *expect* for your browser to throw unsecure errors. This is because a self-signed certificate is being used and is unavoidable when using `localhost`.
+
+Certficiates will be renewed automatically by `certbot` using root's [`crontab`](#cron); if you need to create or renew these manually then you are free to use the `make ssl-create` and `make ssl-renew` commands.
+
 
 
 #### Cron
