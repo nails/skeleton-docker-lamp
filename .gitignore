@@ -1,6 +1,2 @@
 .DS_Store
 .idea
-docker/db/data
-!docker/db/templates/*.sql
-docker/webserver/logs
-docker/webserver/letsencrypt

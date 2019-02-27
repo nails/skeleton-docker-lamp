@@ -20,7 +20,7 @@ ssl-create       - Creates a new LetsEncrypt SSL certificate
 ssl-renew        - Renews a previously created LetsEncrypt SSL certificate
 test             - Executes ./www/test.sh within the context of the web server container
 test-fresh       - Executes ./www/test.sh within the context of the web server container, passing "fresh" as an arg
-up               - Start all containers, install framework if necessary, and start cron
+up               - Start all containers, install framework if necessary, configure cron, and configure SSL
 watch            - Executes ./www/watch.sh within the context of the web server container
 
 EndOfMessage

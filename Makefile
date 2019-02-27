@@ -103,7 +103,7 @@ test-fresh:
 
 
 # --------------------------------------------------------------------------
-# Start all containers, install framework if necessary, and start cron
+# Start all containers, install framework if necessary, configure cron, and configure SSL
 # --------------------------------------------------------------------------
 up:
 	@./docker/scripts/up.sh
