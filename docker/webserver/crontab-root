@@ -2,7 +2,7 @@
 # Crontab
 # Add your recurring jobs, this will populate root's crontab
 #
-# NOTE: cron.sh is used to configure the cron enironment
+# NOTE: cron.sh is used to configure the cron environment
 # --------------------------------------------------------------------------
 
 SHELL=/bin/bash
