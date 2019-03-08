@@ -4,7 +4,6 @@ webserver:
     environment:
         - DOMAIN=localhost
         - PRIVATE_KEY=
-        - CERTBOT_EMAIL=
         - ENVIRONMENT=DEVELOPMENT
         - DB_HOST=db
         - DB_USERNAME=docker

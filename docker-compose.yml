@@ -11,6 +11,8 @@ webserver:
         - './docker/webserver/crontab-root:/root/crontab:delegated'
         - './docker/webserver/logs:/var/log:delegated'
         - './docker/webserver/letsencrypt:/etc/letsencrypt:delegated'
+    environment:
+        - CERTBOT_EMAIL=
 db:
     build: "docker/db"
     ports:
