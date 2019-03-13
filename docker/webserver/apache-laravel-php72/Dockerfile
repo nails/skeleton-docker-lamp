@@ -22,11 +22,11 @@ RUN useradd -u 1000 -m www-bridge-user && \
         libpng-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libmcrypt-dev \
+        libicu-dev \
         libnotify-bin \
+        libcurl4-openssl-dev \
         curl \
         vim \
-        libcurl4-openssl-dev \
         gnupg2 \
         mysql-client \
         ssh-client && \
@@ -50,15 +50,15 @@ RUN useradd -u 1000 -m www-bridge-user && \
     docker-php-ext-configure gd \
         --with-freetype-dir=/usr/include/ \
         --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-configure intl && \
     docker-php-ext-install \
         pdo \
         pdo_mysql \
         mysqli \
         gd \
         curl \
-        zip && \
-    pecl install \
-        mcrypt-1.0.1 && \
+        zip \
+        intl && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
