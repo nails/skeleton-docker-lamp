@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ "$1" == "containers" ]; then
+if [[ $1 == "containers" ]]; then
     docker-compose build
-elif [ "$1" == "fresh" ]; then
-    if [ -f ./www/scripts/build.sh ]; then
+elif [[ $1 == "fresh" ]]; then
+    if [[ -f ./www/scripts/build.sh ]]; then
         docker-compose exec --user=1000:1000 webserver ./scripts/build.sh fresh
     fi
 else
-    if [ -f ./www/scripts/build.sh ]; then
+    if [[ -f ./www/scripts/build.sh ]]; then
         docker-compose exec --user=1000:1000 webserver ./scripts/build.sh
     fi
 fi
