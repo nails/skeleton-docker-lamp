@@ -13,6 +13,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: dependencies
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
+        dnsutils \
         rsyslog \
         logrotate \
         cron \
