@@ -27,7 +27,7 @@ if [  "$DOMAIN" != "localhost"  ]; then
         -m $CERTBOT_EMAIL \
         --expand \
         --webroot \
-        --webroot-path /var/www/html || exit 1
+        --webroot-path /var/www/html/public || exit 1
 
    SSL_CERT="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
    SSL_KEY="/etc/letsencrypt/live/$DOMAIN/privkey.pem"
