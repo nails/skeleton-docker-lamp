@@ -5,14 +5,14 @@ echo "Installing SSL certificate for $DOMAIN"
 # --------------------------------------------------------------------------
 
 # Generate certificate and set variables
-if [  "$DOMAIN" != "localhost"  ]; then
+if [[  "$DOMAIN" != "localhost"  ]]; then
 
     # Calculate which domains to create a certificate for
     DOMAINS=()
-    if [ "$(dig +short $DOMAIN.)" != "" ]; then
+    if [[ "$(dig +short $DOMAIN.)" != "" ]]; then
         DOMAINS=( "${DOMAINS[@]}" "$DOMAIN" )
     fi
-    if [ "$(dig +short www.$DOMAIN.)" != "" ]; then
+    if [[ "$(dig +short www.$DOMAIN.)" != "" ]]; then
         DOMAINS=( "${DOMAINS[@]}" "www.$DOMAIN" )
     fi
     DOMAINS=$(IFS=$','; echo "${DOMAINS[*]}")

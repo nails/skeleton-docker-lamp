@@ -6,7 +6,7 @@ echo "+--------------------------+"
 
 # --------------------------------------------------------------------------
 
-if ! [ -x "$(command -v nails)" ]; then
+if ! [[ -x "$(command -v nails)" ]]; then
     echo "... installing Nails Command Line Tool"
     composer global require "nails/command-line-tool"
 fi

@@ -6,7 +6,7 @@ echo "+----------------------------+"
 
 # --------------------------------------------------------------------------
 
-if ! [ -x "$(command -v laravel)" ]; then
+if ! [[ -x "$(command -v laravel)" ]]; then
     echo "... installing Laravel installer"
     composer global require "laravel/installer"
 fi
