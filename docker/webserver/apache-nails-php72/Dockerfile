@@ -1,8 +1,11 @@
 FROM php:7.2-apache
 
+ARG PHP_XDEBUG
+
 # Install: configuration files
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
+COPY templates/xdebug.ini /usr/local/etc/php/conf.d/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
 COPY templates/cron.sh /cron.sh
@@ -60,6 +63,8 @@ RUN useradd -u 1000 -m www-bridge-user && \
         curl \
         zip \
         intl && \
+    # Install: Xdebug
+    if [ "$PHP_XDEBUG" = "1" ]; then pecl install xdebug; fi && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \

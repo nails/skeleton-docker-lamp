@@ -29,9 +29,9 @@ if [[  "$DOMAIN" != "localhost"  ]]; then
         --webroot \
         --webroot-path /var/www/html || exit 1
 
-   SSL_CERT="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
+   SSL_CERT="/etc/letsencrypt/live/$DOMAIN/cert.pem"
    SSL_KEY="/etc/letsencrypt/live/$DOMAIN/privkey.pem"
-   SSL_CHAIN="/etc/letsencrypt/live/$DOMAIN/privkey.pem"
+   SSL_CHAIN="/etc/letsencrypt/live/$DOMAIN/chain.pem"
 else
     SSL_CERT="/etc/ssl/localhost/localhost.crt"
     SSL_KEY="/etc/ssl/localhost/localhost.key"
