@@ -9,6 +9,7 @@ The following commands are available:
 build            - Executes ./www/build.sh within the context of the web server container
 build-containers - Builds the project containers
 build-fresh      - Executes ./www/build.sh within the context of the web server container, passing "fresh" as an arg
+build-xdebug     - Builds the project containers, installing and enabling Xdebug
 clean            - Stop, then remove, all containers
 down             - Stop all containers
 help             - Prints this message

@@ -1,23 +1,25 @@
-webserver:
-    links:
-        - mail
-    environment:
-        - DOMAIN=localhost
-        - PRIVATE_KEY=
-        - ENVIRONMENT=DEVELOPMENT
-        - DB_HOST=db
-        - DB_USERNAME=docker
-        - DB_PASSWORD=docker
-        - DB_DATABASE=dev
-        - MAIL_HOST=mail
-        - MAIL_PORT=1025
-mail:
-    build: "docker/mail"
-    ports:
-        - "1025:1025"
-        - "8025:8025"
-db:
-    environment:
-        - MYSQL_USER=docker
-        - MYSQL_PASSWORD=docker
-        - MYSQL_DATABASE=dev
+version: "3.7"
+services:
+    webserver:
+        links:
+            - mail
+        environment:
+            - DOMAIN=localhost
+            - PRIVATE_KEY=
+            - ENVIRONMENT=DEVELOPMENT
+            - DB_HOST=db
+            - DB_USERNAME=docker
+            - DB_PASSWORD=docker
+            - DB_DATABASE=dev
+            - MAIL_HOST=mail
+            - MAIL_PORT=1025
+    mail:
+        build: "docker/mail"
+        ports:
+            - "1025:1025"
+            - "8025:8025"
+    db:
+        environment:
+            - MYSQL_USER=docker
+            - MYSQL_PASSWORD=docker
+            - MYSQL_DATABASE=dev
