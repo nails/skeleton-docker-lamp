@@ -64,7 +64,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
         zip \
         intl && \
     # Install: Xdebug
-    if [ "$PHP_XDEBUG" = "1" ]; then pecl install xdebug; fi && \
+    if [ "$PHP_XDEBUG" = "1" ]; then pecl install xdebug; else rm /usr/local/etc/php/conf.d/xdebug.ini; fi && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
