@@ -120,15 +120,16 @@ All database files are stored in `./docker/db/data` so that your data will survi
 
 #### Backups
 
-Automated off-site backups to S3 are easily configured using the `backup` Dockerfile. Simply add the following configuration to your `docker-compose.override.yml` file:
+Automated off-site backups to S3 are easily configured using the `backup` Dockerfile. Simply add the following configuration to your `docker-compose.override.yml` file to backup the database and the root project folder:
 
 ```
 backup:
     build: docker/backup
     links:
-       - db
+        - db
     volumes:
         - './docker/backup/logs:/var/log:delegated'
+        - './www:/var/www/html:cached'
     environment:
         - DOMAIN=localhost
         - S3_ACCESS_KEY=my-aws-access-key
