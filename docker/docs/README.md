@@ -120,28 +120,30 @@ All database files are stored in `./docker/db/data` so that your data will survi
 
 #### Backups
 
-Automated off-site backups to S3 are easily configured using the `db-backup` Dockerfile. Simply add the following configuration to your `docker-compose.override.yml` file:
+Automated off-site backups to S3 are easily configured using the `backup` Dockerfile. Simply add the following configuration to your `docker-compose.override.yml` file:
 
 ```
- db-backup:
-     build: "docker/db-backup"
-     links:
-         - db
-     volumes:
-         - './docker/db-backup/logs:/var/log:delegated'
-     environment:
-         - S3_ACCESS_TOKEN=my-super-secret-access-token
-         - S3_ACCESS_SECRET=my-super-secret-access-secret
-         - S3_BUCKET=my-s3-bucket
-         - MYSQL_HOST=db
-         - MYSQL_USER=docker
-         - MYSQL_PASSWORD=docker
-         - MYSQL_DATABASE=dev
+backup:
+    build: docker/backup
+    links:
+       - db
+    volumes:
+        - './docker/backup/logs:/var/log:delegated'
+    environment:
+        - DOMAIN=localhost
+        - S3_ACCESS_KEY=my-aws-access-key
+        - S3_ACCESS_SECRET=my-aws-access-secret
+        - S3_BUCKET=my-s3-bucket
+        - MYSQL_HOST=db
+        - MYSQL_USER=docker
+        - MYSQL_PASSWORD=docker
+        - MYSQL_DATABASE=dev
+        - DIRECTORY=/var/www/html
 ```
 
 > Remember to update the env vars according to your configuration.
 
-You can configure the backup schedule by editing `./docker/db-backup/templates/crontab`, by default (and when enabled), the backups will run daily at midnight (00:00).
+You can configure the backup schedule by editing `./docker/backup/templates/crontab`, by default (and when enabled), the backups will run daily at 03:00 UTC.
 
 Under the hood, the backup is powered by the [Shed CLI tool](https://github.com/shedcollective/shed-cli-tool).
 

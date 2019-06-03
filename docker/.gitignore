@@ -1,5 +1,5 @@
 db/data
 !db/templates/*.sql
-db-backup/logs
+backup/logs
 webserver/logs
 webserver/letsencrypt
