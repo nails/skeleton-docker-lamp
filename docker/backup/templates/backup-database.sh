@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 shed project:backup:database \
     -n \
     --domain=$DOMAIN \
