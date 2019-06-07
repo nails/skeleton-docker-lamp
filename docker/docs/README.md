@@ -152,7 +152,7 @@ Under the hood, the backup is powered by the [Shed CLI tool](https://github.com/
 
 ### Email
 
-By default, all email is routed to MailHog (as specified in `docker-compose.override.yml`); this acts as a catch-all to avoid email being sent to real addresses.
+By default, all email is routed to [MailHog](https://github.com/mailhog/MailHog) (as specified in `docker-compose.override.yml`); this acts as a catch-all to avoid email being sent to real addresses.
 
 > Remember to use valid email settings when deploying to non-development environments.
 
@@ -192,4 +192,6 @@ This framework will install Laravel to `www` with default settings.
 
 **`docker/webserver/apache-wordpress-php72`**
 
-This framework will install Wordpress to `www` with default settings.
+This framework will install Wordpress to `www` using Root's [Bedrock](https://roots.io/bedrock/) framework. Additionally, Attomatic's [_s](https://underscores.me) theme will be installed. Manage plugin's and additional themes using [wpackagist](http://wpackagist.org) for Composer.
+
+Default scripts for `make build` and `make watch` are added with basic webpack functionality - you should update these to your liking.

@@ -10,6 +10,7 @@ RUN chmod 755 /entry.sh /backup/database.sh /backup/directory.sh && \
     # Install: dependencies
     apk upgrade && \
     apk add \
+        bash \
         git \
         zip \
         unzip \
@@ -17,7 +18,7 @@ RUN chmod 755 /entry.sh /backup/database.sh /backup/directory.sh && \
         php-zip \
         mysql-client \
         python \
-        py-pip&& \
+        py-pip && \
     # Install: PHP extensions
     docker-php-ext-install \
         zip && \
