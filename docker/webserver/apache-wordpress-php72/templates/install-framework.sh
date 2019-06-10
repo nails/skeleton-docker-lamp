@@ -69,3 +69,9 @@ echo "    wp_enqueue_script('custom-theme-js', get_template_directory_uri() . '/
 echo "}" >> ./www/web/app/themes/custom-theme/functions.php
 echo "add_action('wp_enqueue_scripts', 'custom_theme_scripts_2');" >> ./www/web/app/themes/custom-theme/functions.php
 echo "" >> ./www/web/app/themes/custom-theme/functions.php
+
+# --------------------------------------------------------------------------
+
+# Copy the welcome file
+rm -f ./www/web/index.php
+cp ./docker/webserver/apache-wordpress-php72/templates/index.php ./www/web/index.php
