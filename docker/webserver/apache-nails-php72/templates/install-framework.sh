@@ -12,4 +12,4 @@ if ! [[ -x "$(command -v nails)" ]]; then
 fi
 
 echo "... installing Nails"
-nails new --dir="www" --no-docker
+nails new:project --dir="www" --no-docker
