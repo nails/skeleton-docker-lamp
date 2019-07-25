@@ -25,7 +25,7 @@ docker-compose exec webserver bash -c "service rsyslog restart"
 # Configure and start cron
 echo "Installing crontabs"
 # Dump the env vars so we can use it in cron
-docker-compose exec --user=1000:1000 webserver bash -c "printenv | sed 's/^\(.*\)=\(.*\)$/export \1="\2"/g' > ~/env.sh"
+docker-compose exec --user=1000:1000 webserver bash -c "printenv | sed 's/^\(.*\)=\(.*\)$/export \1=\"\2\"/g' > ~/env.sh"
 # Install the crontabs
 docker-compose exec --user=1000:1000 webserver bash -c "cat ~/crontab | crontab -"
 docker-compose exec webserver bash -c "cat ~/crontab | crontab -"
