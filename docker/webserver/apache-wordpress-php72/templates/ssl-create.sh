@@ -34,7 +34,7 @@ if [[  "${SSL_DOMAIN}" != "localhost"  ]]; then
         -m ${CERTBOT_EMAIL} \
         --expand \
         --webroot \
-        --webroot-path /var/www/html || exit 1
+        --webroot-path /var/www/html/web || exit 1
 
    SSL_CERT="/etc/letsencrypt/live/${SSL_DOMAIN}/cert.pem"
    SSL_KEY="/etc/letsencrypt/live/${SSL_DOMAIN}/privkey.pem"
