@@ -50,7 +50,7 @@ fi
 # Write the variables to Apache conf
 sed -i -E "s:SSLCertificateFile(.*) (.*):SSLCertificateFile\1 ${SSL_CERT}:g" /etc/apache2/apache2.conf
 sed -i -E "s:SSLCertificateKeyFile(.*) (.*):SSLCertificateKeyFile\1 ${SSL_KEY}:g" /etc/apache2/apache2.conf
-sed -i -E "s:SSLCertificateChainFile(.*) (.*):SSLCertificateChainFile\1 ${SSL_KEY}:g" /etc/apache2/apache2.conf
+sed -i -E "s:SSLCertificateChainFile(.*) (.*):SSLCertificateChainFile\1 ${SSL_CHAIN}:g" /etc/apache2/apache2.conf
 
 # --------------------------------------------------------------------------
 
