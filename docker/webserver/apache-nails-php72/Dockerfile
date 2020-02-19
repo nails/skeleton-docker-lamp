@@ -6,6 +6,7 @@ ARG PHP_XDEBUG
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/xdebug.ini /usr/local/etc/php/conf.d/
+COPY templates/opcache.ini /usr/local/etc/php/conf.d/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
 COPY templates/cron.sh /cron.sh
@@ -42,7 +43,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
     chmod a+x /usr/local/bin/certbot && \
     # Install: Node
-    curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get update -y && apt-get install -y \
         nodejs && \
     # Install: Yarn
@@ -69,14 +70,20 @@ RUN useradd -u 1000 -m www-bridge-user && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
     # Install: Nails Command Line Tool
-    su www-bridge-user -c 'composer global require nails/command-line-tool' && \
+    su www-bridge-user -c 'composer global require nails/command-line-tool --no-ansi' && \
     ln -s /home/www-bridge-user/.composer/vendor/bin/nails /usr/local/bin/nails && \
     ln -s /home/www-bridge-user/.composer/vendor/bin/nails-cli /usr/local/bin/nails-cli && \
     # Enable: Apache modules
+    curl "https://dl-ssl.google.com/dl/linux/direct/mod-pagespeed-stable_current_amd64.deb" > ~/mod_pagespeed.deb && \
+    dpkg -i ~/mod_pagespeed.deb && \
     a2enmod rewrite && \
     a2enmod ssl && \
     a2enmod headers && \
     a2enmod expires && \
+    a2enmod pagespeed && \
+    # Add env vars to Apache
+    touch /env-apache.sh && \
+    echo ". /env-apache.sh" >> /etc/apache2/envvars && \
     # Create local SSL certificate
     mkdir -p /etc/ssl/localhost && \
     # Generate a key
@@ -102,8 +109,6 @@ RUN useradd -u 1000 -m www-bridge-user && \
         -req \
         -in /etc/ssl/localhost/localhost.csr \
         -out /etc/ssl/localhost/localhost.pem && \
-    # Restart apache
-    service apache2 restart && \
     # Configure services to start on boot
     update-rc.d rsyslog enable && \
     update-rc.d cron enable
@@ -111,3 +116,6 @@ RUN useradd -u 1000 -m www-bridge-user && \
 # Install: bash aliases (after www-bridge-user has been created)
 COPY templates/.bash_aliases /root
 COPY templates/.bash_aliases /home/www-bridge-user
+
+# Late install of some config files
+COPY templates/pagespeed.conf /etc/apache2/mods-available/

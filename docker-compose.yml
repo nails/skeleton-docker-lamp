@@ -15,6 +15,8 @@ services:
             - './docker/webserver/letsencrypt:/etc/letsencrypt:delegated'
         environment:
             - CERTBOT_EMAIL=
+            - PAGESPEED_ENABLE=on
+            - OPCACHE_VALIDATE_TIMESTAMPS=0
     db:
         build: "docker/db"
         ports:
