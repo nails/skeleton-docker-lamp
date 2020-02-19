@@ -13,6 +13,7 @@ services:
             - DB_DATABASE=dev
             - MAIL_HOST=mail
             - MAIL_PORT=1025
+            - OPCACHE_VALIDATE_TIMESTAMPS=1
     mail:
         build: "docker/mail"
         ports:
