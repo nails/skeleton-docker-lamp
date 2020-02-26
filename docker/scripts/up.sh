@@ -49,7 +49,7 @@ docker-compose exec webserver bash -c "cat ~/crontab | crontab -" || exit 1
 docker-compose exec webserver bash -c "service cron restart" || exit  1
 
 # Restart Blackfire (if installed)
-docker-compose exec webserver bash -c 'if [[ $(which blackfire) != "" ]]; then /etc/init.d/blackfire-agent restart; fi' || exit 1
+docker-compose exec webserver bash -c 'if [[ $(which blackfire) != "" ]]; then mkdir -p /var/log/blackfire && touch /var/log/blackfire/agent.log && /etc/init.d/blackfire-agent restart; fi' || exit 1
 
 # --------------------------------------------------------------------------
 

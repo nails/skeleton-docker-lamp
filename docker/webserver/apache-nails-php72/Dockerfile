@@ -11,6 +11,7 @@ ARG PHP_BLACKFIRE_SERVER_TOKEN=""
 COPY templates/apache2.conf /etc/apache2/
 COPY templates/php.ini /usr/local/etc/php/
 COPY templates/xdebug.ini /usr/local/etc/php/conf.d/
+COPY templates/blackfire.ini /usr/local/etc/php/conf.d/zz-blackfire.ini
 COPY templates/opcache.ini /usr/local/etc/php/conf.d/
 COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
@@ -72,7 +73,7 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: Xdebug
     if [ "$PHP_XDEBUG" = "1" ]; then pecl install xdebug; else rm /usr/local/etc/php/conf.d/xdebug.ini; fi && \
     # Install: Blackfire
-    if [ "$PHP_BLACKFIRE" = "1" ]; then echo "Installing Blackfire"; else rm /usr/local/etc/php/conf.d/blackfire.ini; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then echo "Installing Blackfire"; else rm /usr/local/etc/php/conf.d/zz-blackfire.ini; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then curl -sS https://packages.blackfire.io/gpg.key | apt-key add -; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get update -y; fi && \
