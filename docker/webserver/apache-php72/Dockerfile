@@ -1,6 +1,11 @@
 FROM php:7.2-apache-stretch
 
-ARG PHP_XDEBUG
+ARG PHP_XDEBUG=0
+ARG PHP_BLACKFIRE=0
+ARG PHP_BLACKFIRE_CLIENT_ID=""
+ARG PHP_BLACKFIRE_CLIENT_TOKEN=""
+ARG PHP_BLACKFIRE_SERVER_ID=""
+ARG PHP_BLACKFIRE_SERVER_TOKEN=""
 
 # Install: configuration files
 COPY templates/apache2.conf /etc/apache2/
@@ -66,6 +71,16 @@ RUN useradd -u 1000 -m www-bridge-user && \
         intl && \
     # Install: Xdebug
     if [ "$PHP_XDEBUG" = "1" ]; then pecl install xdebug; else rm /usr/local/etc/php/conf.d/xdebug.ini; fi && \
+    # Install: Blackfire
+    if [ "$PHP_BLACKFIRE" = "1" ]; then echo "Installing Blackfire"; else rm /usr/local/etc/php/conf.d/blackfire.ini; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then curl -sS https://packages.blackfire.io/gpg.key | apt-key add -; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get update -y; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install -y blackfire-agent; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then blackfire-agent --register --server-id=$PHP_BLACKFIRE_SERVER_ID --server-token=$PHP_BLACKFIRE_SERVER_TOKEN; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install blackfire-php; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then su www-bridge-user -c "blackfire config --client-id=$PHP_BLACKFIRE_CLIENT_ID --client-token=$PHP_BLACKFIRE_CLIENT_TOKEN"; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then /etc/init.d/blackfire-agent restart; fi && \
     # Install: composer
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/bin/composer && \
@@ -115,3 +130,4 @@ COPY templates/.bash_aliases /home/www-bridge-user
 
 # Late install of some config files
 COPY templates/pagespeed.conf /etc/apache2/mods-available/
+COPY templates/blackfire.ini /usr/local/etc/php/conf.d/zz-blackfire.ini

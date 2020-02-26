@@ -48,6 +48,9 @@ docker-compose exec webserver bash -c "cat ~/crontab | crontab -" || exit 1
 # Restart cron
 docker-compose exec webserver bash -c "service cron restart" || exit  1
 
+# Restart Blackfire (if installed)
+docker-compose exec webserver bash -c 'if [[ $(which blackfire) != "" ]]; then /etc/init.d/blackfire-agent restart; fi' || exit 1
+
 # --------------------------------------------------------------------------
 
 # Set the Apache envvars
