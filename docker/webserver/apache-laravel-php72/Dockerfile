@@ -133,4 +133,3 @@ COPY templates/.bash_aliases /home/www-bridge-user
 
 # Late install of some config files
 COPY templates/pagespeed.conf /etc/apache2/mods-available/
-COPY templates/blackfire.ini /usr/local/etc/php/conf.d/zz-blackfire.ini
