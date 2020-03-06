@@ -1,5 +1,4 @@
 db/data
-!db/templates/*.sql
 backup/logs
 webserver/logs
 webserver/letsencrypt
