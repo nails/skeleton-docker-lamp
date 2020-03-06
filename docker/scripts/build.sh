@@ -1,8 +1,10 @@
 #!/bin/bash
 
 if [[ $1 == "containers" ]]; then
+    docker-compose pull && \
     docker-compose build
 elif [[ $1 == "xdebug" ]]; then
+    docker-compose pull && \
     docker-compose build --build-arg PHP_XDEBUG=1
 elif [[ $1 == "blackfire" ]]; then
 
@@ -18,6 +20,7 @@ elif [[ $1 == "blackfire" ]]; then
     echo "Blackfire Server Token:"
     read PHP_BLACKFIRE_SERVER_TOKEN
 
+    docker-compose pull && \
     docker-compose build \
       --build-arg PHP_BLACKFIRE=1 \
       --build-arg PHP_BLACKFIRE_CLIENT_ID=$PHP_BLACKFIRE_CLIENT_ID \
