@@ -13,9 +13,14 @@ COPY templates/php.ini /usr/local/etc/php/
 COPY templates/xdebug.ini /usr/local/etc/php/conf.d/
 COPY templates/blackfire.ini /usr/local/etc/php/conf.d/zz-blackfire.ini
 COPY templates/opcache.ini /usr/local/etc/php/conf.d/
-COPY templates/localhost.ssl.conf /etc/ssl/localhost/
 COPY templates/ssl-create.sh /ssl-create.sh
 COPY templates/cron.sh /cron.sh
+
+# Install SSL certificate
+COPY templates/ssl/localhost.crt /etc/ssl/localhost/
+COPY templates/ssl/localhost.csr /etc/ssl/localhost/
+COPY templates/ssl/localhost.key /etc/ssl/localhost/
+COPY templates/ssl/localhost.pem /etc/ssl/localhost/
 
 RUN useradd -u 1000 -m www-bridge-user && \
     cp /etc/skel/.bashrc ~/ && \
@@ -48,14 +53,16 @@ RUN useradd -u 1000 -m www-bridge-user && \
     # Install: certbot
     curl https://dl.eff.org/certbot-auto -o /usr/local/bin/certbot && \
     chmod a+x /usr/local/bin/certbot && \
+    /usr/local/bin/certbot --version -n && \
     # Install: Node
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
-    apt-get update -y && apt-get install -y \
+    apt-get update -y && apt-get install -y --no-install-recommends \
         nodejs && \
     # Install: Yarn
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update -y && apt-get install -y \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
         yarn && \
     # Install: PHP extensions
     docker-php-ext-configure gd \
@@ -77,9 +84,9 @@ RUN useradd -u 1000 -m www-bridge-user && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then curl -sS https://packages.blackfire.io/gpg.key | apt-key add -; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get update -y; fi && \
-    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install -y blackfire-agent; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install -y --no-install-recommends blackfire-agent; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then blackfire-agent --register --server-id=$PHP_BLACKFIRE_SERVER_ID --server-token=$PHP_BLACKFIRE_SERVER_TOKEN; fi && \
-    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install blackfire-php; fi && \
+    if [ "$PHP_BLACKFIRE" = "1" ]; then apt-get install -y --no-install-recommends blackfire-php; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then su www-bridge-user -c "blackfire config --client-id=$PHP_BLACKFIRE_CLIENT_ID --client-token=$PHP_BLACKFIRE_CLIENT_TOKEN"; fi && \
     if [ "$PHP_BLACKFIRE" = "1" ]; then /etc/init.d/blackfire-agent restart; fi && \
     # Install: composer
@@ -92,35 +99,9 @@ RUN useradd -u 1000 -m www-bridge-user && \
     a2enmod ssl && \
     a2enmod headers && \
     a2enmod expires && \
-    a2enmod pagespeed && \
     # Add env vars to Apache
     touch /env-apache.sh && \
     echo ". /env-apache.sh" >> /etc/apache2/envvars && \
-    # Create local SSL certificate
-    mkdir -p /etc/ssl/localhost && \
-    # Generate a key
-    openssl genrsa \
-        -out /etc/ssl/localhost/localhost.key 4096 && \
-    # Create a CSR
-    openssl req -new \
-        -out /etc/ssl/localhost/localhost.csr \
-        -key /etc/ssl/localhost/localhost.key \
-        -config /etc/ssl/localhost/localhost.ssl.conf &&\
-    # Generate the certificate
-    openssl x509 -req \
-        -days 3650 \
-        -in /etc/ssl/localhost/localhost.csr \
-        -signkey /etc/ssl/localhost/localhost.key \
-        -out /etc/ssl/localhost/localhost.crt \
-        -extensions req_ext \
-        -extfile /etc/ssl/localhost/localhost.ssl.conf && \
-    # Generate chainfile
-    openssl x509 -trustout \
-        -signkey /etc/ssl/localhost/localhost.key \
-        -days 365 \
-        -req \
-        -in /etc/ssl/localhost/localhost.csr \
-        -out /etc/ssl/localhost/localhost.pem && \
     # Configure services to start on boot
     update-rc.d rsyslog enable && \
     update-rc.d cron enable
