@@ -1,1 +1,1 @@
-FROM nailsapp/docker-env-backup:latest
+FROM nails/docker-env-backup:latest
