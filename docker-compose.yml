@@ -11,8 +11,6 @@ services:
             - './www:/var/www/html:cached'
             - './docker/webserver/crontab:/home/www-bridge-user/crontab:delegated'
             - './docker/webserver/crontab-root:/root/crontab:delegated'
-            - './docker/webserver/logs:/var/log:delegated'
-            - './docker/webserver/letsencrypt:/etc/letsencrypt:delegated'
         environment:
             - CERTBOT_EMAIL=
             - PAGESPEED_ENABLE=on
