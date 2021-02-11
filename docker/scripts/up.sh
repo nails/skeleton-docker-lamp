@@ -60,7 +60,7 @@ docker-compose exec webserver bash -c 'echo "export PAGESPEED_ENABLE=\"${PAGESPE
 # --------------------------------------------------------------------------
 
 # Install SSL certificate
-make ssl-create
+make ssl-create || exit 1
 
 # --------------------------------------------------------------------------
 
