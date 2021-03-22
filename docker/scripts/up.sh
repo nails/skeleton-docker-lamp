@@ -1,5 +1,9 @@
 #!/bin/bash
 
+docker info > /dev/null 2>&1 || echo 'Docker engine is not running' && exit 1;
+
+# --------------------------------------------------------------------------
+
 # Run the installer if the ./www directory is not there
 if [[ ! -d ./www ]]; then
     mkdir -p www
