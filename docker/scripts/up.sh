@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# Run the installer if the ./www directory is not there
-if [[ ! -d ./www ]]; then
-    mkdir -p www
-    INSTALLER=$(cat docker-compose.yml | sed -n 's/ *build: "\(docker\/webserver\/.*\)"/\1/p');
-    INSTALLER_PATH="$INSTALLER/templates/install-framework.sh"
-    if [[ -f $INSTALLER_PATH ]]; then
-        ./"$INSTALLER_PATH"
-    fi
-fi
+docker info > /dev/null 2>&1 || (echo 'Docker Engine is not running' && exit 1);
 
 # --------------------------------------------------------------------------
 
 # Bring the containers up
 docker-compose up -d || exit 1
+
+# --------------------------------------------------------------------------
+
+# Run the installer if the ./www directory is not there
+if [[ ! -d ./www ]]; then
+    echo "Installing framework"
+    docker-compose exec webserver bash -c "/install-framework.sh" || exit 1
+fi
 
 # --------------------------------------------------------------------------
 
@@ -60,7 +60,7 @@ docker-compose exec webserver bash -c 'echo "export PAGESPEED_ENABLE=\"${PAGESPE
 # --------------------------------------------------------------------------
 
 # Install SSL certificate
-make ssl-create
+make ssl-create || exit 1
 
 # --------------------------------------------------------------------------
 
