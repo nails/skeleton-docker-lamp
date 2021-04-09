@@ -10,9 +10,9 @@ docker-compose up -d || exit 1
 # --------------------------------------------------------------------------
 
 # Run the installer if the ./www directory is not there
-if [[ ! -d ./www ]]; then
+if [[ -z "$(ls -A ./www)" ]]; then
     echo "Installing framework"
-    docker-compose exec webserver bash -c "/install-framework.sh" || exit 1
+    docker-compose exec --user=1000:1000 webserver bash -c "/install-framework.sh" || exit 1
 fi
 
 # --------------------------------------------------------------------------
