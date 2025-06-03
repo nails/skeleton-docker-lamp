@@ -17,11 +17,6 @@ fi
 
 # --------------------------------------------------------------------------
 
-# Start rsylog
-docker-compose exec webserver bash -c "service rsyslog restart" || exit 1
-
-# --------------------------------------------------------------------------
-
 # Configure and start cron
 echo "Installing crontabs"
 

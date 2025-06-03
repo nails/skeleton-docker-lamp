@@ -1,1 +1,1 @@
-FROM nails/docker-env-webserver:apache-php74-nails
+FROM nails/docker-env-webserver:apache-php81-nails

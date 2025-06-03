@@ -1,1 +1,1 @@
-FROM nails/docker-env-db:mysql-5.7
+FROM nails/docker-env-db:mysql-8.0
